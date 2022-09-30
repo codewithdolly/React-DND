@@ -1,23 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
+import { useDrag } from 'react-dnd'
 
 function App() {
+  const [{ opacity }, dragRef] = useDrag(
+    () => ({
+      type: ItemTypes.CARD,
+      item: { text },
+      collect: (monitor) => ({
+        opacity: monitor.isDragging() ? 0.5 : 1
+      })
+    }),
+    []
+  )
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
+       <div ref={dragRef} style={{ opacity }}>
+      {text}
+    </div>
     </div>
   );
 }
