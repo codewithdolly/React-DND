@@ -74,7 +74,7 @@ function App() {
     <div className="App">
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="dropable">
-          {(provided, snapshot) => {
+          {(provided, snapshot) => (
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
@@ -82,7 +82,7 @@ function App() {
             >
               {items.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
-                  {(provided, snapshot) => {
+                  {(provided, snapshot) => (
                     <div
                       className="card"
                       ref={provided.innerRef}
@@ -94,13 +94,13 @@ function App() {
                       )}
                     >
                       {item.content}
-                    </div>;
-                  }}
+                    </div>
+                    )}
                 </Draggable>
               ))}
               {provided.placeholder}
             </div>
-          }}
+          )}
         </Droppable>
       </DragDropContext>
     </div>
