@@ -13,7 +13,7 @@ const data = [
   },
   {
     id: "item-3",
-    content: "Gouva",
+    content: "Guava",
   },
   {
     id: "item-4",
@@ -37,43 +37,43 @@ const reorder = (list, startIndex, endIndex) => {
 };
 const grid = 8;
 
+const getItemStyle = (isDragging, draggableStyle) => ({
+  userSelect: "none",
+  padding: grid * 2,
+  margin: `0 0 ${grid}px 0`,
+  background: isDragging ? "lightgreen" : "gray",
+  ...draggableStyle,
+});
+const getListStyle = (isDraggingOver) => ({
+  background: isDraggingOver ? "lightblue" : "lightgray",
+  padding: grid,
+  width: 250,
+});
+
 function App() {
   const [items, setItems] = useState([]);
-
-  const getItemStyle = (isDragging, draggableStyle) => ({
-    userSelect: "none",
-    padding: grid * 2,
-    margin: `0 0 ${grid}px 0`,
-    background: isDragging ? "lightgreen" : "gray",
-    ...draggableStyle,
-  });
-  const getListStyle = (isDraggingOver) => ({
-    background: isDraggingOver ? "lightblue" : "lightgray",
-    padding: grid,
-    width: 250,
-  });
-
-  const onDragEnd = (result) => {
-    if (!result.destination) {
-      return;
-    }
-    const reorderdItems = reorder(
-      items,
-      result.source.index,
-      result.destination.index
-    );
-    console.log("reorderdItems", { reorderdItems });
-    setItems(reorderdItems);
-  };
 
   useEffect(() => {
     setItems(data);
   }, []);
 
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+    const reorderedItems = reorder(
+      items,
+      result.source.index,
+      result.destination.index
+    );
+    console.log("reorderedItems", reorderedItems);
+    setItems(reorderedItems);
+  };
+
   return (
-    <div className="App">
+    <div className="App m-4">
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="dropable">
+        <Droppable droppableId="droppable">
           {(provided, snapshot) => (
             <div
               {...provided.droppableProps}
@@ -95,7 +95,7 @@ function App() {
                     >
                       {item.content}
                     </div>
-                    )}
+                  )}
                 </Draggable>
               ))}
               {provided.placeholder}
