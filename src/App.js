@@ -30,7 +30,7 @@ const data = [
 ];
 
 const reorder = (list, startIndex, endIndex) => {
-  const result = Array.form(list);
+  const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
   return result;
@@ -50,7 +50,7 @@ const getListStyle = (isDraggingOver) => ({
   width: 250,
 });
 
-function App() {
+const App = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -71,7 +71,8 @@ function App() {
   };
 
   return (
-    <div className="App m-4">
+    <div className="App mt-5 card">
+      <h2 className="border-bottom">This is a List of fruit.</h2>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
@@ -105,6 +106,6 @@ function App() {
       </DragDropContext>
     </div>
   );
-}
+};
 
 export default App;
